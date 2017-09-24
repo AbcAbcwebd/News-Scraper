@@ -47,15 +47,11 @@ app.get("/scrape", function(req, res) {
       // Save an empty result object
       var result = {};
 
-      result.init = "Value Saved";
-      console.log(result);
-
       // Add the text and href of every link, and save them as properties of the result object
-      result.headline = $(this).children("h2").text();
+      result.headline = $(this).children(".headline")
       result.link = $(this).attr("href");
       result.summary = $(this).children(".summary").text();
       result.byLine = $(this).children(".byline").text();
-      result.test = "Test";
 
       console.log(result);
 
