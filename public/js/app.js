@@ -4,14 +4,15 @@ function finishPageLoad(){
 		console.log($(this))
 	  var commentArray = $(this).find(".comment-array")[0].innerText.split(",");
 	  console.log(commentArray[0].length);
+	  var commentHolder = $(this);
 	  if (commentArray[0].length > 0){
 	  	// Loop within a loop probably not great for performance.... 
 	  	for (var i = 0; i < commentArray.length; i++){
 	  		console.log("Querying " + commentArray[i]);
 	  		$.get("/notes/" + commentArray[i], function(data) {
 				console.log(data);
-				var displayComment = "<div class='display-comment'><h3>" + data.title + "</h3><p>" + data.body + "</p><button class='delete-comment-btn' data-article='" + $(this).attr('data-article') + "' data-comment='" + data._id + "'>Delete</button></div>";
-				$(this).append(displayComment);
+				var displayComment = "<div class='display-comment'><h3>" + data[0].title + "</h3><p>" + data[0].body + "</p><button class='delete-comment-btn' data-article='" + commentHolder.attr('data-article') + "' data-comment='" + data[0]._id + "'>Delete</button></div>";
+				commentHolder.append(displayComment);
 			});
 	  	}
 	  }
