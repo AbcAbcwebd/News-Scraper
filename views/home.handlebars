@@ -10,8 +10,8 @@
 		  <div class="comments-holder" data-article="{{_id}}">
 		  	<p class="comment-array" data-article="{{_id}}">{{notes}}</p>
 		  </div>
-		  <input type="text" class="title-input" data-article="{{_id}}">
-		  <input type="text" class="comment-input" data-article="{{_id}}">
+		  <input type="text" class="title-input" data-article="{{_id}}" value="title">
+		  <textarea type="text" class="comment-input" data-article="{{_id}}" value="comment"></textarea>
 		  <button class="comment-submit-btn" data-article="{{_id}}">Submit</button>
 	  </div>
 	{{/each}}
