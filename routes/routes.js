@@ -46,7 +46,7 @@ router.get("/scrape", function(req, res) {
   // Tell the browser that we finished scraping the text
   res.send("Scrape Complete");
 });
-
+/*
 router.get("/", function(req, res) {
 	Article.find({})
 	    // ..and string a call to populate the entry with the books stored in the library's books array
@@ -60,9 +60,51 @@ router.get("/", function(req, res) {
 	      }
 	      // Or, send our results to the browser, which will now include the books stored in the library
 	      else {
-	        res.render("home", {articles: doc});
+//	        res.render("home", {articles: doc});
+          res.json(doc);
 	      }
     });
+});
+*/
+router.get("/", function(req, res) {
+  Article.find({}, function(err, doc){
+    res.render("home", {articles: doc});
+  });
+});
+
+// Saves a note given the corresponding articles ID
+router.post("/articles/:id", function(req, res) {
+  // Use our Note model to make a new note from the req.body
+  var newNote = new Note(req.body);
+  // Save the new note to mongoose
+  newNote.save(function(error, doc) {
+    // Send any errors to the browser
+    if (error) {
+      res.send(error);
+    }
+    // Otherwise
+    else {
+      // Find our user and push the new note id into the User's notes array
+      Article.update({_id: req.params.id}, { $push: { "notes": doc._id } }, { new: true }, function(err, newdoc) {
+        // Send any errors to the browser
+        if (err) {
+          res.send(err);
+        }
+        // Or send the newdoc to the browser
+        else {
+          res.send(newdoc);
+        }
+      });
+    }
+  });
+  console.log("Note saved")
+
+});
+
+router.get("/notes/:id", function(req, res) {
+  Note.find({_id: req.params.id}, function(err, doc){
+    res.json(doc);
+  });
 });
 
 module.exports = router;

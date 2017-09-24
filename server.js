@@ -21,7 +21,7 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 app.use(express.static("public"));
 
 // Database configuration with mongoose
-mongoose.connect("mongodb://localhost/week18day3mongoose");
+mongoose.connect("mongodb://localhost/news-scraper-db");
 var db = mongoose.connection;
 
 // Show any mongoose errors

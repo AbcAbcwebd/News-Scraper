@@ -1,7 +1,20 @@
 // Makes updates to the homepage when it loads
 function finishPageLoad(){
-	$( ".article-element" ).each(function( index ) {
-	  
+	$( ".comments-holder" ).each(function( index ) {
+		console.log($(this))
+	  var commentArray = $(this).find(".comment-array")[0].innerText.split(",");
+	  console.log(commentArray[0].length);
+	  if (commentArray[0].length > 0){
+	  	// Loop within a loop probably not great for performance.... 
+	  	for (var i = 0; i < commentArray.length; i++){
+	  		console.log("Querying " + commentArray[i]);
+	  		$.get("/notes/" + commentArray[i], function(data) {
+				console.log(data);
+				var displayComment = "<div class='display-comment'><h3>" + data.title + "</h3><p>" + data.body + "</p><button class='delete-comment-btn' data-article='" + $(this).attr('data-article') + "' data-comment='" + data._id + "'>Delete</button></div>";
+				$(this).append(displayComment);
+			});
+	  	}
+	  }
 	});
 };
 
@@ -24,6 +37,7 @@ $( document ).ready(function() {
 	  		if ($(this).attr('data-article') === clickedID){
 	  			title = $(this).val();
 	  			console.log("Title: " + title);
+	  			$(this).val("");
 	  			return;
 	  		};
 		});
@@ -32,30 +46,25 @@ $( document ).ready(function() {
 	  		if ($(this).attr('data-article') === clickedID){
 	  			comment = $(this).val();
 	  			console.log("Message: " + comment);
+	  			$(this).val("");
 	  			return;
 	  		};
 		});
-/*
+
 		$.ajax({
 		    method: "POST",
 		    url: "/articles/" + clickedID,
 		    data: {
 		      // Value taken from title input
-		      title: $("#titleinput").val(),
+		      title: title,
 		      // Value taken from note textarea
-		      body: $("#bodyinput").val()
-	    }
-	  })
+		      body: comment
+	    	}
+	  	})
 	    // With that done
 	    .done(function(data) {
 	      // Log the response
 	      console.log(data);
-	      // Empty the notes section
-	      $("#notes").empty();
 	    });
-
-	  // Also, remove the values entered in the input and textarea for note entry
-	  $("#titleinput").val("");
-	  $("#bodyinput").val(""); */
-		});
+	});
 });
