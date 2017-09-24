@@ -1,13 +1,18 @@
 <h1>News-Scraper</h1>
 <div id="article-holder">
 	{{#each articles}}
-	  <a href="{{link}}">
-	  	<h2>{{headline}}</h2>
-	  	<p class="byline">{{byLine}}</p>
-	  	<p>{{summary}}</p>
-	  </a>
-	  <div class="comments-holder" data-article="{{_id}}">
-	  	<p class="comment-array" data-article="{{_id}}">{{notes}}</p>
+	  <div class="article-element">
+		  <a href="{{link}}">
+		  	<h2>{{headline}}</h2>
+		  	<p class="byline">{{byLine}}</p>
+		  	<p>{{summary}}</p>
+		  </a>
+		  <div class="comments-holder" data-article="{{_id}}">
+		  	<p class="comment-array" data-article="{{_id}}">{{notes}}</p>
+		  </div>
+		  <input type="text" class="title-input" data-article="{{_id}}">
+		  <input type="text" class="comment-input" data-article="{{_id}}">
+		  <button class="comment-submit-btn" data-article="{{_id}}">Submit</button>
 	  </div>
 	{{/each}}
 </div>
