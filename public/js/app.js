@@ -71,15 +71,13 @@ $( document ).ready(function() {
 	});
 
 	$('body').on('click', '.delete-comment-btn', function(){
-		console.log("Clicked")
-/*		$.delete("/notes/1/3", function(data) {
-			console.log(data);
-		});*/
+		var articleID = $(this).attr('data-article');
+		var commentIndex = $(this).attr('data-comment');
 		$.ajax({
-		    url: '/notes/1/3',
+		    url: '/notes/' + articleID + '/' + commentIndex,
 		    type: 'DELETE',
 		    success: function(result) {
-		        // Do something with the result
+		        location.reload();
 		    }
 		});
 	});

@@ -107,11 +107,21 @@ router.get("/notes/:id", function(req, res) {
   });
 });
 
+// Delete comment from a particular article
 router.delete("/notes/:id/:index", function(req, res) {
-/*  Note.find({_id: req.params.id}, function(err, doc){
-    res.json(doc);
-  });*/
-  console.log("delete route hit");
+  Article.find({ _id: req.params.id }, function(err, doc){
+    if (!err){
+      Article.update({ _id: req.params.id }, { $set: { notes: doc[0].notes.splice(req.params.index, 1) }}, function(error, upRes){
+        if (error) {
+          res.send(error);
+        }
+        else {
+          res.send(upRes);
+        }
+      });
+    };
+  });
+  
 });
 
 module.exports = router;
