@@ -58,7 +58,7 @@ router.get("/", function(req, res) {
 	      }
 	      // Or, send our results to the browser, which will now include the books stored in the library
 	      else {
-	        res.render("home", doc);
+	        res.render("home", {articles: doc});
 	      }
     });
 });
