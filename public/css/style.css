@@ -1,0 +1,106 @@
+header {
+	background: #bf2b2b;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	overflow: auto;
+}
+
+header h1 {
+	float: left;
+	color: white;
+	font-size: 35px;
+	margin-left: 15px;
+}
+
+#scrape-btn {
+	float: right;
+	font-size: 25px;
+	padding: 5px 10px 5px 10px;
+	margin-right: 25px;
+	color: #bf2b2b;
+}
+
+.article-element {
+	margin-top: 10px;
+	margin-bottom: 5px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	background: #f2f2f2;
+	margin-left: 10px;
+	margin-right: 10px;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+.article-element h2 {
+	font-weight: bold;
+	font-size: 18px;
+}
+
+.byline {
+	font-style: italic;
+	font-size: 12px;
+	margin-bottom: 10px;
+}
+
+.comments-holder {
+	background: #e0e0e0;
+	margin-top: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	margin-bottom: 5px;
+	padding-left: 5px;
+}
+
+.comment-array {
+	display: none;
+}
+
+.comments-holder h3 {
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.comments-holder p {
+	margin-left: 5px;
+}
+
+.display-comment {
+	background: #f2f2f2;
+	padding: 5px 10px 5px 10px;
+}
+
+.comments-holder button {
+	color: #bf2b2b;
+}
+
+.add-comment-area {
+	background: #e0e0e0;
+	padding: 15px 10px 40px 10px;
+}
+
+.add-comment-area input {
+	width: 80%;
+	display: block;
+	margin: auto;
+}
+
+.add-comment-area textarea {
+	width: 80%;
+	display: block;
+	margin: auto;
+	margin-top: 10px;
+}
+
+.add-comment-area button {
+	float: right;
+	margin-right: 20%;
+	margin-top: 5px;
+	color: #bf2b2b;
+	font-size: 17px;
+}

@@ -1,4 +1,3 @@
-<h1>News-Scraper</h1>
 <div id="article-holder">
 	{{#each articles}}
 	  <div class="article-element">
@@ -10,9 +9,11 @@
 		  <div class="comments-holder" data-article="{{_id}}">
 		  	<p class="comment-array" data-article="{{_id}}">{{notes}}</p>
 		  </div>
-		  <input type="text" class="title-input" data-article="{{_id}}" value="title">
-		  <textarea type="text" class="comment-input" data-article="{{_id}}" value="comment"></textarea>
-		  <button class="comment-submit-btn" data-article="{{_id}}">Submit</button>
+		  <div class="add-comment-area">
+			  <input type="text" class="title-input" data-article="{{_id}}" value="Title">
+			  <textarea type="text" class="comment-input" data-article="{{_id}}" value="comment"></textarea>
+			  <button class="comment-submit-btn" data-article="{{_id}}">Add Comment</button>
+		  </div>
 	  </div>
 	{{/each}}
 </div>
