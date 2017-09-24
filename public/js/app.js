@@ -66,6 +66,21 @@ $( document ).ready(function() {
 	    .done(function(data) {
 	      // Log the response
 	      console.log(data);
+	      location.reload();
 	    });
+	});
+
+	$('body').on('click', '.delete-comment-btn', function(){
+		console.log("Clicked")
+/*		$.delete("/notes/1/3", function(data) {
+			console.log(data);
+		});*/
+		$.ajax({
+		    url: '/notes/1/3',
+		    type: 'DELETE',
+		    success: function(result) {
+		        // Do something with the result
+		    }
+		});
 	});
 });

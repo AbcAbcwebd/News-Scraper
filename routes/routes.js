@@ -107,4 +107,11 @@ router.get("/notes/:id", function(req, res) {
   });
 });
 
+router.delete("/notes/:id/:index", function(req, res) {
+/*  Note.find({_id: req.params.id}, function(err, doc){
+    res.json(doc);
+  });*/
+  console.log("delete route hit");
+});
+
 module.exports = router;
