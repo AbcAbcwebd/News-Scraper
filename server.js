@@ -7,6 +7,8 @@ const bodyParser = require("body-parser");
 const expressHandlebars = require("express-handlebars");
 const cheerio = require("cheerio");
 const request = require("request");
+const Note = require("./models/Note.js");
+const Article = require("./models/Article.js");
 
 // Initialize Express
 var app = express();
@@ -57,7 +59,7 @@ app.get("/scrape", function(req, res) {
 
       // Using our Article model, create a new entry
       // This effectively passes the result object to the entry (and the title and link)
-/*      var entry = new Article(result);
+      var entry = new Article(result);
 
       // Now, save that entry to the db
       entry.save(function(err, doc) {
@@ -69,7 +71,7 @@ app.get("/scrape", function(req, res) {
         else {
           console.log(doc);
         }
-      }); */
+      }); 
 
     });
   });
