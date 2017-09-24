@@ -4,19 +4,18 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const expressHandlebars = require("express-handlebars");
+const exphbs = require("express-handlebars");
 const cheerio = require("cheerio");
 const request = require("request");
-const Note = require("./models/Note.js");
-const Article = require("./models/Article.js");
 
 // Initialize Express
 var app = express();
 
-// Use body parser with our app
-app.use(bodyParser.urlencoded({
-  extended: false
-}));
+// Use body parser
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.text());
+app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 // Make public a static dir
 app.use(express.static("public"));
@@ -35,51 +34,14 @@ db.once("open", function() {
   console.log("Mongoose connection successful.");
 });
 
+// Set Handlebars as the default templating engine.
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
+
+
 // ROUTES
-
-app.get("/scrape", function(req, res) {
-	console.log("Scrape route hit")
-  // First, we grab the body of the html with request
-  request("https://www.nytimes.com/section/technology?action=click&pgtype=Homepage&region=TopBar&module=HPMiniNav&contentCollection=Tech&WT.nav=page", function(error, response, html) {
-    // Then, we load that into cheerio and save it to $ for a shorthand selector
-    var $ = cheerio.load(html);
-    console.log("HTML loaded");
-    $(".story-link").each(function(i, element) {
-
-      // Save an empty result object
-      var result = {};
-
-      // Add the text and href of every link, and save them as properties of the result object
-      result.headline = $(this).children(".story-meta").children(".headline").text().split("                    ")[1];
-      result.link = $(this).attr("href");
-      result.summary = $(this).children(".story-meta").children(".summary").text();
-      result.byLine = $(this).children(".story-meta").children(".byline").text();
-
-      console.log(result);
-
-      // Using our Article model, create a new entry
-      // This effectively passes the result object to the entry (and the title and link)
-      var entry = new Article(result);
-
-      // Now, save that entry to the db
-      entry.save(function(err, doc) {
-        // Log any errors
-        if (err) {
-          console.log(err);
-        }
-        // Or log the doc
-        else {
-          console.log(doc);
-        }
-      }); 
-
-    });
-  });
-  // Tell the browser that we finished scraping the text
-  res.send("Scrape Complete");
-});
-
-
+const routes = require("./routes/routes.js");
+app.use("/", routes);
 
 // Listen on port 3000
 app.listen(3000, function() {
