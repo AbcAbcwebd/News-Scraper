@@ -11,7 +11,7 @@ function finishPageLoad(){
 	  		console.log("Querying " + commentArray[i]);
 	  		$.get("/notes/" + commentArray[i] + "/" + i, function(data) {
 				console.log(data);
-				var displayComment = "<div class='display-comment'><h3>" + data[0].title + "</h3><p>" + data[0].body + "</p><button class='delete-comment-btn' data-article='" + commentHolder.attr('data-article') + "' data-comment='" + data[1] + "'>Delete</button></div>";
+				var displayComment = "<div class='display-comment'><h3>" + data[0].title + "</h3><p>" + data[0].body + "</p><button class='delete-comment-btn' data-article='" + commentHolder.attr('data-article') + "' data-comment='" + data[1] + "'>Delete Comment</button></div>";
 				commentHolder.append(displayComment);
 			});
 	  	}
@@ -77,6 +77,17 @@ $( document ).ready(function() {
 		console.log("commentIndex: " + commentIndex);
 		$.ajax({
 		    url: '/notes/' + articleID + '/' + commentIndex,
+		    type: 'DELETE',
+		    success: function(result) {
+		        location.reload();
+		    }
+		});
+	});
+
+	$('body').on('click', '.article-delete-btn', function(){
+		var deleteID = $(this).attr('data-article');
+		$.ajax({
+		    url: '/articles/' + deleteID,
 		    type: 'DELETE',
 		    success: function(result) {
 		        location.reload();

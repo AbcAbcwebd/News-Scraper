@@ -104,3 +104,10 @@ a {
 	color: #bf2b2b;
 	font-size: 17px;
 }
+
+.article-delete-btn {
+	display: block;
+	margin: auto;
+	margin-top: 8px;
+	color: #bf2b2b;
+}

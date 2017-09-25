@@ -135,4 +135,14 @@ router.delete("/notes/:id/:index", function(req, res) {
   
 });
 
+router.delete("/articles/:id/", function(req, res) {
+  Article.findByIdAndRemove(req.params.id, (err, todo) => {  
+      let response = {
+          message: "Todo successfully deleted",
+          id: todo._id
+      };
+      res.status(200).send(response);
+  });
+});
+
 module.exports = router;
