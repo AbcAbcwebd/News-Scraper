@@ -101,17 +101,28 @@ router.post("/articles/:id", function(req, res) {
 
 });
 
-router.get("/notes/:id", function(req, res) {
+router.get("/notes/:id/:index", function(req, res) {
   Note.find({_id: req.params.id}, function(err, doc){
+    // The index is passed back to account for asynchorous issues in the for loops.
+    doc.push(req.params.index);
+    console.log("Preparing to return comment");
+    console.log(doc[0])
     res.json(doc);
   });
 });
 
 // Delete comment from a particular article
 router.delete("/notes/:id/:index", function(req, res) {
+  console.log("delete comment route hit")
   Article.find({ _id: req.params.id }, function(err, doc){
     if (!err){
-      Article.update({ _id: req.params.id }, { $set: { notes: doc[0].notes.splice(req.params.index, 1) }}, function(error, upRes){
+      console.log("target article found")
+      console.log("Before: " + doc[0].notes);
+      console.log("Is array?: " + Array.isArray(doc[0].notes) );
+      console.log("Index for slice: " + req.params.index);
+      doc[0].notes.splice(req.params.index, 1)
+      console.log("After: " +  doc[0].notes );
+      Article.update({ _id: req.params.id }, { $set: { notes: doc[0].notes }}, function(error, upRes){
         if (error) {
           res.send(error);
         }

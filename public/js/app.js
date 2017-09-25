@@ -9,9 +9,9 @@ function finishPageLoad(){
 	  	// Loop within a loop probably not great for performance.... 
 	  	for (var i = 0; i < commentArray.length; i++){
 	  		console.log("Querying " + commentArray[i]);
-	  		$.get("/notes/" + commentArray[i], function(data) {
+	  		$.get("/notes/" + commentArray[i] + "/" + i, function(data) {
 				console.log(data);
-				var displayComment = "<div class='display-comment'><h3>" + data[0].title + "</h3><p>" + data[0].body + "</p><button class='delete-comment-btn' data-article='" + commentHolder.attr('data-article') + "' data-comment='" + data[0]._id + "'>Delete</button></div>";
+				var displayComment = "<div class='display-comment'><h3>" + data[0].title + "</h3><p>" + data[0].body + "</p><button class='delete-comment-btn' data-article='" + commentHolder.attr('data-article') + "' data-comment='" + data[1] + "'>Delete</button></div>";
 				commentHolder.append(displayComment);
 			});
 	  	}
@@ -73,6 +73,8 @@ $( document ).ready(function() {
 	$('body').on('click', '.delete-comment-btn', function(){
 		var articleID = $(this).attr('data-article');
 		var commentIndex = $(this).attr('data-comment');
+		console.log("articleID: " + articleID);
+		console.log("commentIndex: " + commentIndex);
 		$.ajax({
 		    url: '/notes/' + articleID + '/' + commentIndex,
 		    type: 'DELETE',
