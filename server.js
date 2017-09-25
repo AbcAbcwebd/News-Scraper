@@ -9,7 +9,10 @@ const cheerio = require("cheerio");
 const request = require("request");
 
 // Initialize Express
-var app = express();
+const app = express();
+
+// Defines port
+const PORT = process.env.PORT || 5000;
 
 // Use body parser
 app.use(bodyParser.json());
@@ -22,7 +25,7 @@ app.use(express.static("public"));
 
 // Database configuration with mongoose
 mongoose.connect("mongodb://heroku_mftcp9cd:p080tnvhjjdcck6ulncce4uiis@ds149144.mlab.com:49144/heroku_mftcp9cd"); // mongodb://localhost/news-scraper-db
-var db = mongoose.connection;
+const db = mongoose.connection;
 
 // Show any mongoose errors
 db.on("error", function(error) {
@@ -43,7 +46,7 @@ app.set("view engine", "handlebars");
 const routes = require("./routes/routes.js");
 app.use("/", routes);
 
-// Listen on port 3000
-app.listen(3000, function() {
+// Listener
+app.listen(PORT, function() {
   console.log("App running on port 3000!");
 });
